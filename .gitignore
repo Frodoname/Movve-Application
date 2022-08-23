@@ -1,1 +1,3 @@
 *.DS_Store
+/Pods
+Movve.xcworkspace/xcuserdata/fed.xcuserdatad/UserInterfaceState.xcuserstate
