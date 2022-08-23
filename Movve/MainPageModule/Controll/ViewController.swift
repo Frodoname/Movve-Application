@@ -8,15 +8,15 @@
 import UIKit
 
 final class ViewController: UIViewController {
-    
+
     private lazy var movieArray: [MovieModel] = []
     private lazy var tvArray: [TvModel] = []
     private lazy var continueWatchingArray: [ContinueModel] = []
-    
+
     private var mainView: MainView!
-    
+
     private let customCellId = "customCellId"
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpNavigationBar()
@@ -25,15 +25,16 @@ final class ViewController: UIViewController {
 
     func setUpNavigationBar() {
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white]
+        navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor:
+                                                                            UIColor.white]
         title = "Movve"
         view.backgroundColor = UIColor(named: ColorScheme.backgroundColor)
     }
-    
+
     func setUpMainView() {
         mainView = MainView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height))
         view.addSubview(mainView)
-        
+
         mainView.popularMoviesCollectionView.delegate = self
         mainView.popularMoviesCollectionView.dataSource = self
         mainView.tvShowCollectionView.delegate = self
@@ -43,27 +44,24 @@ final class ViewController: UIViewController {
     }
 }
 
-//MARK: - Extensions
+// MARK: - Extensions
 
 extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch collectionView {
         case mainView.popularMoviesCollectionView:
-            return 10 //movieArray.count
+            return 10 // movieArray.count
         case mainView.tvShowCollectionView:
-            return 10 //tvArray.count
+            return 10 // tvArray.count
         case mainView.continueWatchingCollectionView:
-            return 10 //continueWatchingArray.count
+            return 10 // continueWatchingArray.count
         default:
             return 0
         }
     }
-    
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        1
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: customCellId, for: indexPath)
         guard let typedCell = cell as? CustomCell else { return cell }
         switch collectionView {
@@ -77,9 +75,10 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, 
             return cell
         }
     }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 140, height: 200)
     }
 }
-
