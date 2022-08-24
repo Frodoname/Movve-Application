@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ViewController: UIViewController {
+final class MainViewController: UIViewController {
 
     private lazy var movieArray: [MovieModel] = []
     private lazy var tvArray: [TvModel] = []
@@ -46,7 +46,7 @@ final class ViewController: UIViewController {
 
 // MARK: - Extensions
 
-extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch collectionView {
         case mainView.popularMoviesCollectionView:

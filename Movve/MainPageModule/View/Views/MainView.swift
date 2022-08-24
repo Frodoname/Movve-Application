@@ -213,8 +213,7 @@ final class MainView: UIView {
             continueWatchingCollectionView.topAnchor.constraint(equalTo: continueWatchingLabel.bottomAnchor),
             continueWatchingCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
             continueWatchingCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
-            // continueWatchingCollectionView.heightAnchor.constraint(equalToConstant: collectionViewHeight),
-            continueWatchingCollectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+             continueWatchingCollectionView.heightAnchor.constraint(equalToConstant: collectionViewHeight)
         ])
     }
 }
