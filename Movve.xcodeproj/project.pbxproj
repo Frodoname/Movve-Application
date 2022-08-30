@@ -13,6 +13,9 @@
 		89407ACF28B60FF70049B2A5 /* ItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89407ACE28B60FF70049B2A5 /* ItemModel.swift */; };
 		895B508228AC385800B03ACC /* UIView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895B508128AC385800B03ACC /* UIView + Extension.swift */; };
 		895B508428ACDE1200B03ACC /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895B508328ACDE1200B03ACC /* CustomCell.swift */; };
+		89832AA028BE0C6D007A117E /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89832A9F28BE0C6D007A117E /* NetworkService.swift */; };
+		89832AA228BE0FE8007A117E /* NetworkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89832AA128BE0FE8007A117E /* NetworkModel.swift */; };
+		89832AA428BE44FF007A117E /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89832AA328BE44FF007A117E /* NetworkError.swift */; };
 		89B084F928ACEC2800557840 /* MovieModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B084F828ACEC2800557840 /* MovieModel.swift */; };
 		89B084FB28ACECB400557840 /* TvArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B084FA28ACECB400557840 /* TvArray.swift */; };
 		89B084FD28ACECD900557840 /* ContinueModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B084FC28ACECD900557840 /* ContinueModel.swift */; };
@@ -32,6 +35,9 @@
 		89407ACE28B60FF70049B2A5 /* ItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemModel.swift; sourceTree = "<group>"; };
 		895B508128AC385800B03ACC /* UIView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + Extension.swift"; sourceTree = "<group>"; };
 		895B508328ACDE1200B03ACC /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
+		89832A9F28BE0C6D007A117E /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		89832AA128BE0FE8007A117E /* NetworkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkModel.swift; sourceTree = "<group>"; };
+		89832AA328BE44FF007A117E /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		89B084F828ACEC2800557840 /* MovieModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieModel.swift; sourceTree = "<group>"; };
 		89B084FA28ACECB400557840 /* TvArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TvArray.swift; sourceTree = "<group>"; };
 		89B084FC28ACECD900557840 /* ContinueModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinueModel.swift; sourceTree = "<group>"; };
@@ -109,6 +115,25 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		89832A9D28BE0C50007A117E /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				89E54D4428ABEF84002AD4D4 /* MainPageModule */,
+				89407AC628B60B200049B2A5 /* FilmPageModule */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		89832A9E28BE0C59007A117E /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				89832A9F28BE0C6D007A117E /* NetworkService.swift */,
+				89832AA128BE0FE8007A117E /* NetworkModel.swift */,
+				89832AA328BE44FF007A117E /* NetworkError.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
 		89B9436528A1666400E99075 = {
 			isa = PBXGroup;
 			children = (
@@ -130,11 +155,11 @@
 		89B9437028A1666400E99075 /* Movve */ = {
 			isa = PBXGroup;
 			children = (
+				89832A9E28BE0C59007A117E /* Networking */,
 				895B508028AC383B00B03ACC /* Extensions */,
 				89E54D4C28ABF1A1002AD4D4 /* Constants */,
 				89E54D4328ABEE71002AD4D4 /* App */,
-				89E54D4428ABEF84002AD4D4 /* MainPageModule */,
-				89407AC628B60B200049B2A5 /* FilmPageModule */,
+				89832A9D28BE0C50007A117E /* Core */,
 				89B9437F28A1666500E99075 /* Info.plist */,
 				89B9437C28A1666500E99075 /* LaunchScreen.storyboard */,
 			);
@@ -231,6 +256,7 @@
 				89B9436A28A1666400E99075 /* Sources */,
 				89B9436B28A1666400E99075 /* Frameworks */,
 				89B9436C28A1666400E99075 /* Resources */,
+				AF0D1AF10EC36BD986418236 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -304,6 +330,23 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
 		};
+		AF0D1AF10EC36BD986418236 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Movve/Pods-Movve-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Movve/Pods-Movve-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Movve/Pods-Movve-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		F744D13B6C8D4F30808A7CF3 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -342,8 +385,11 @@
 				89407ACF28B60FF70049B2A5 /* ItemModel.swift in Sources */,
 				89B9437628A1666400E99075 /* MainViewController.swift in Sources */,
 				89E54D4B28ABF05B002AD4D4 /* MainView.swift in Sources */,
+				89832AA428BE44FF007A117E /* NetworkError.swift in Sources */,
 				89407ACB28B60BB00049B2A5 /* ItemViewController.swift in Sources */,
 				895B508228AC385800B03ACC /* UIView + Extension.swift in Sources */,
+				89832AA028BE0C6D007A117E /* NetworkService.swift in Sources */,
+				89832AA228BE0FE8007A117E /* NetworkModel.swift in Sources */,
 				89B9437228A1666400E99075 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

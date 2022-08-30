@@ -7,5 +7,6 @@ target 'Movve' do
 
   # Pods for Movve
   pod 'SwiftLint'
+  pod 'Kingfisher', '~> 7.0'
 
 end

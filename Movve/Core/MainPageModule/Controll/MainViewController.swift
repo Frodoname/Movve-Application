@@ -8,6 +8,8 @@
 import UIKit
 
 final class MainViewController: UIViewController {
+    
+    private var networkService = NetworkService()
 
     private lazy var movieArray: [MovieModel] = []
     private lazy var tvArray: [TvModel] = []
@@ -21,6 +23,15 @@ final class MainViewController: UIViewController {
         super.viewDidLoad()
         setUpNavigationBar()
         setUpMainView()
+        
+        networkService.fetchPopularMovies(with: networkService.urlMovie) { result in
+            switch result {
+            case .success(let model):
+                print(model.results)
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 
     func setUpNavigationBar() {
