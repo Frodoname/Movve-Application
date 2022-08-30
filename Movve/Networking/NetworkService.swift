@@ -16,12 +16,12 @@ final class NetworkService {
     
     private let queue = DispatchQueue(label: "ru.teodor.Movve - NetworkService")
     
-    func fetchPopularMovies(with urlString: String, completion: @escaping (Result<NetworkModel, Error>) -> Void) {
+    func fetchPopularMovies(with urlString: String, completion: @escaping (Result<NetworkMovieModel, Error>) -> Void) {
         queue.async {
             self.performRequest(with: urlString) { result in
                 switch result {
                 case .success(let data):
-                    guard let decodedData = try? JSONDecoder().decode(NetworkModel.self, from: data) else {
+                    guard let decodedData = try? JSONDecoder().decode(NetworkMovieModel.self, from: data) else {
                         return completion(.failure(NetworkError.decodingError))
                     }
                     DispatchQueue.main.async {

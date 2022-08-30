@@ -8,9 +8,9 @@
 import Foundation
 
 // MARK: - NetworkModel
-struct NetworkModel: Codable {
+struct NetworkMovieModel: Codable {
     let page: Int
-    let results: [Element]
+    let results: [ElementMovie]
     let totalPages: Int
     let totalResults: Int
     
@@ -22,8 +22,8 @@ struct NetworkModel: Codable {
     }
 }
 
-// MARK: - Result
-struct Element: Codable {
+// MARK: - ElementMovie
+struct ElementMovie: Codable {
     let adult: Bool
     let backdropPath: String
     let genreIDS: [Int]

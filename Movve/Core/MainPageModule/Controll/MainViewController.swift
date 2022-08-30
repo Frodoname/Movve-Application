@@ -12,8 +12,8 @@ final class MainViewController: UIViewController {
     private var networkService = NetworkService()
 
     private lazy var movieArray: [MovieModel] = []
-    private lazy var tvArray: [TvModel] = []
-    private lazy var continueWatchingArray: [ContinueModel] = []
+    private lazy var tvArray: [MovieModel] = []
+    private lazy var continueWatchingArray: [MovieModel] = []
 
     private var mainView: MainView!
 
@@ -23,17 +23,9 @@ final class MainViewController: UIViewController {
         super.viewDidLoad()
         setUpNavigationBar()
         setUpMainView()
-        
-        networkService.fetchPopularMovies(with: networkService.urlMovie) { result in
-            switch result {
-            case .success(let model):
-                print(model.results)
-            case .failure(let error):
-                print(error)
-            }
-        }
+        fetchMovie()
     }
-
+// MARK: - UI Setup
     func setUpNavigationBar() {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor:
@@ -52,6 +44,19 @@ final class MainViewController: UIViewController {
         mainView.tvShowCollectionView.dataSource = self
         mainView.continueWatchingCollectionView.delegate = self
         mainView.continueWatchingCollectionView.dataSource = self
+    }
+    
+// MARK: - Networking
+    
+    func fetchMovie() {
+        networkService.fetchPopularMovies(with: networkService.urlMovie) { result in
+            switch result {
+            case .success(let model):
+                print(model.results)
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 }
 
