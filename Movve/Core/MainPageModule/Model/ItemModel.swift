@@ -7,13 +7,15 @@
 
 import Foundation
 
-struct MovieModel {    
+struct ItemModel {    
     let name: String
+    let id: Int
     let description: String
     let rate: Double
     let date: String
     let image: String
     let genreId: [Int]
+    
     var genre: [Genre] {
         var array: [Genre] = []
         for genre in genreId {
@@ -54,9 +56,26 @@ struct MovieModel {
                 array.append(.Thriller)
             case 10752:
                 array.append(.War)
-            default:
+            case 10759:
+                array.append(.ActionAdventure)
+            case 10762:
+                array.append(.Kids)
+            case 10763:
+                array.append(.News)
+            case 10764:
+                array.append(.Reality)
+            case 10765:
+                array.append(.SciPiFantasy)
+            case 10766:
+                array.append(.Soap)
+            case 10767:
+                array.append(.Talk)
+            case 10768:
+                array.append(.WarPolitics)
+            case 37:
                 array.append(.Western)
-                
+            default:
+                array.append(.noGenre)
             }
         }
         return array

@@ -8,16 +8,24 @@
 import UIKit
 import Foundation
 
+protocol MainViewProtocol: AnyObject {
+    func didRefreshData()
+}
+
 final class MainView: UIView {
+    
+    weak var delegate: MainViewProtocol?
 
     private let customCellId = "customCellId"
 
     private let padding: CGFloat = 12
     private let heightLabel: CGFloat = 30
     private let collectionViewHeight: CGFloat = 200
+    private let horizontalSpace: CGFloat = 10
     private let tapBarBottomPadding: CGFloat = -20
     private let tapBarPadding: CGFloat = 50
     private let buttonSize: CGFloat = 30
+    private let tapBarSpace: CGFloat = 100
 
     private enum Image {
         static let homeButton = "homeButton"
@@ -29,7 +37,17 @@ final class MainView: UIView {
     private lazy var scrollView: UIScrollView = {
         let view = UIScrollView()
         view.alwaysBounceVertical = true
+        view.refreshControl = refreshControll
         return view
+    }()
+    
+    private lazy var refreshControll: UIRefreshControl = {
+       let refreshControl = UIRefreshControl()
+        let atributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to Refresh", attributes: atributes)
+        refreshControl.addTarget(self, action: #selector(refreshScrollView), for: .valueChanged)
+        refreshControl.tintColor = .white
+        return refreshControl
     }()
 
     private lazy var contentView: UIStackView = {
@@ -49,6 +67,7 @@ final class MainView: UIView {
     private lazy var popularMoviesLabel: UILabel = {
         let label = UILabel()
         label.text = "Popular Movies"
+        label.font = UIFont.systemFont(ofSize: 17, weight: .bold)
         label.textColor = ColorScheme.textColor
         label.textAlignment = .left
         return label
@@ -58,6 +77,7 @@ final class MainView: UIView {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        view.backgroundColor = UIColor(named: ColorScheme.backgroundColor)
         view.showsHorizontalScrollIndicator = false
         view.register(CustomCell.self, forCellWithReuseIdentifier: customCellId)
         return view
@@ -75,6 +95,7 @@ final class MainView: UIView {
         label.text = "TV Show"
         label.textColor = ColorScheme.textColor
         label.textAlignment = .left
+        label.font = UIFont.systemFont(ofSize: 17, weight: .bold)
         return label
     }()
 
@@ -82,6 +103,7 @@ final class MainView: UIView {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        view.backgroundColor = UIColor(named: ColorScheme.backgroundColor)
         view.showsHorizontalScrollIndicator = false
         view.register(CustomCell.self, forCellWithReuseIdentifier: customCellId)
         return view
@@ -99,6 +121,7 @@ final class MainView: UIView {
         label.text = "Continue watching"
         label.textColor = ColorScheme.textColor
         label.textAlignment = .left
+        label.font = UIFont.systemFont(ofSize: 17, weight: .bold)
         return label
     }()
 
@@ -106,6 +129,7 @@ final class MainView: UIView {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        view.backgroundColor = UIColor(named: ColorScheme.backgroundColor)
         view.showsHorizontalScrollIndicator = false
         view.register(CustomCell.self, forCellWithReuseIdentifier: customCellId)
         return view
@@ -114,7 +138,7 @@ final class MainView: UIView {
     private lazy var downTapBarView: UIView = {
         let view = UIView()
         view.prepareForAutoLayOut()
-        view.heightAnchor.constraint(equalToConstant: 84).isActive = true
+        view.heightAnchor.constraint(equalToConstant: tapBarSpace).isActive = true
         return view
     }()
 
@@ -178,6 +202,15 @@ final class MainView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: - Action Functions
+    
+    @objc private func refreshScrollView(sender: UIRefreshControl) {
+        delegate?.didRefreshData()
+        DispatchQueue.main.async {
+            sender.endRefreshing()
+        }
+    }
 
     // MARK: - Layout
 
@@ -218,24 +251,21 @@ final class MainView: UIView {
             
             popularMoviesLabel.topAnchor.constraint(equalTo: upperView.topAnchor),
             popularMoviesLabel.leadingAnchor.constraint(equalTo: upperView.leadingAnchor, constant: padding),
-            popularMoviesLabel.trailingAnchor.constraint(equalTo: upperView.trailingAnchor, constant: -padding),
-            popularMoviesCollectionView.topAnchor.constraint(equalTo: popularMoviesLabel.bottomAnchor),
+            popularMoviesCollectionView.topAnchor.constraint(equalTo: popularMoviesLabel.bottomAnchor, constant: horizontalSpace),
             popularMoviesCollectionView.leadingAnchor.constraint(equalTo: upperView.leadingAnchor, constant: padding),
             popularMoviesCollectionView.trailingAnchor.constraint(equalTo: upperView.trailingAnchor, constant: -padding),
             popularMoviesCollectionView.heightAnchor.constraint(equalToConstant: collectionViewHeight),
             
-            tvShowLabel.topAnchor.constraint(equalTo: middleView.topAnchor),
+            tvShowLabel.topAnchor.constraint(equalTo: middleView.topAnchor, constant: horizontalSpace),
             tvShowLabel.leadingAnchor.constraint(equalTo: middleView.leadingAnchor, constant: padding),
-            tvShowLabel.trailingAnchor.constraint(equalTo: middleView.trailingAnchor, constant: -padding),
-            tvShowCollectionView.topAnchor.constraint(equalTo: tvShowLabel.bottomAnchor),
+            tvShowCollectionView.topAnchor.constraint(equalTo: tvShowLabel.bottomAnchor, constant: horizontalSpace),
             tvShowCollectionView.leadingAnchor.constraint(equalTo: middleView.leadingAnchor, constant: padding),
             tvShowCollectionView.trailingAnchor.constraint(equalTo: middleView.trailingAnchor, constant: -padding),
             tvShowCollectionView.heightAnchor.constraint(equalToConstant: collectionViewHeight),
             
-            continueWatchingLabel.topAnchor.constraint(equalTo: downView.topAnchor),
+            continueWatchingLabel.topAnchor.constraint(equalTo: downView.topAnchor, constant: 2 * horizontalSpace),
             continueWatchingLabel.leadingAnchor.constraint(equalTo: downView.leadingAnchor, constant: padding),
-            continueWatchingLabel.trailingAnchor.constraint(equalTo: downView.trailingAnchor, constant: -padding),
-            continueWatchingCollectionView.topAnchor.constraint(equalTo: continueWatchingLabel.bottomAnchor),
+            continueWatchingCollectionView.topAnchor.constraint(equalTo: continueWatchingLabel.bottomAnchor, constant: horizontalSpace),
             continueWatchingCollectionView.leadingAnchor.constraint(equalTo: downView.leadingAnchor, constant: padding),
             continueWatchingCollectionView.trailingAnchor.constraint(equalTo: downView.trailingAnchor, constant: -padding),
             continueWatchingCollectionView.heightAnchor.constraint(equalToConstant: collectionViewHeight),

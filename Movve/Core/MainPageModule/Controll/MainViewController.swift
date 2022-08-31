@@ -10,10 +10,11 @@ import UIKit
 final class MainViewController: UIViewController {
     
     private var networkService = NetworkService()
+    private let dtoTransformer = DtoTransformer()
 
-    private lazy var movieArray: [MovieModel] = []
-    private lazy var tvArray: [MovieModel] = []
-    private lazy var continueWatchingArray: [MovieModel] = []
+    private lazy var movieArray: [ItemModel] = []
+    private lazy var tvArray: [ItemModel] = []
+    private lazy var continueWatchingArray: [ItemModel] = []
 
     private var mainView: MainView!
 
@@ -23,18 +24,20 @@ final class MainViewController: UIViewController {
         super.viewDidLoad()
         setUpNavigationBar()
         setUpMainView()
-        fetchMovie()
+        fetchData()
+        mainView.delegate = self
     }
 // MARK: - UI Setup
-    func setUpNavigationBar() {
+    
+    private func setUpNavigationBar() {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor:
                                                                             UIColor.white]
         title = "Movve"
-        view.backgroundColor = UIColor(named: ColorScheme.backgroundColor)
-    }
+      }
 
-    func setUpMainView() {
+    private func setUpMainView() {
+        view.backgroundColor = UIColor(named: ColorScheme.backgroundColor)
         mainView = MainView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height))
         view.addSubview(mainView)
 
@@ -48,29 +51,47 @@ final class MainViewController: UIViewController {
     
 // MARK: - Networking
     
-    func fetchMovie() {
-        networkService.fetchPopularMovies(with: networkService.urlMovie) { result in
+    private func fetchData() {
+        networkService.fetchPopularMovies(with: networkService.urlMovie) { [weak self] result in
             switch result {
             case .success(let model):
-                print(model.results)
+                self?.movieArray = self?.dtoTransformer.networkMovieToDomainArray(with: model.results) ?? []
+                self?.movieArray.shuffle()
+                self?.mainView.popularMoviesCollectionView.reloadData()
             case .failure(let error):
                 print(error)
             }
         }
+        
+        networkService.fetchPopularTV(with: networkService.urlTvShow) { [weak self] result in
+            switch result {
+            case .success(let model):
+                self?.tvArray = self?.dtoTransformer.networkTvToDomainArray(with: model.results) ?? []
+                self?.tvArray.shuffle()
+                self?.mainView.tvShowCollectionView.reloadData()
+            case .failure(let error):
+                print(error)
+            }
+
+        }
     }
 }
 
-// MARK: - Extensions
+// MARK: - Extension CollectionView Setup
 
 extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch collectionView {
         case mainView.popularMoviesCollectionView:
-            return 10 // movieArray.count
+            return movieArray.count
         case mainView.tvShowCollectionView:
-            return 10 // tvArray.count
+            return tvArray.count
         case mainView.continueWatchingCollectionView:
-            return 10 // continueWatchingArray.count
+            if self.continueWatchingArray.isEmpty {
+                return 1
+            } else {
+                return continueWatchingArray.count
+            }
         default:
             return 0
         }
@@ -82,11 +103,19 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         guard let typedCell = cell as? CustomCell else { return cell }
         switch collectionView {
         case mainView.popularMoviesCollectionView:
+            typedCell.configureMovieCell(with: movieArray[indexPath.row])
             return typedCell
         case mainView.tvShowCollectionView:
+            typedCell.configureMovieCell(with: tvArray[indexPath.row])
             return typedCell
         case mainView.continueWatchingCollectionView:
-            return typedCell
+            if self.continueWatchingArray.isEmpty {
+                typedCell.configureEmptyCell()
+                return typedCell
+            } else {
+                typedCell.configureMovieCell(with: continueWatchingArray[indexPath.row])
+                return typedCell
+            }
         default:
             return cell
         }
@@ -96,5 +125,18 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 140, height: 200)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        didSelectItemAt indexPath: IndexPath) {
+        
+    }
+}
+
+// MARK: - Protocol Extenstion
+
+extension MainViewController: MainViewProtocol {
+    func didRefreshData() {
+        fetchData()
     }
 }

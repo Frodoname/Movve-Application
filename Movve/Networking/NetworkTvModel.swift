@@ -24,7 +24,8 @@ struct NetworkTvModel: Codable {
 
 // MARK: - ElementTv
 struct ElementTv: Codable {
-    let backdropPath, firstAirDate: String
+    let backdropPath: String?
+    let firstAirDate: String
     let genreIDS: [Int]
     let id: Int
     let name: String

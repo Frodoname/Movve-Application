@@ -37,7 +37,7 @@ struct ElementMovie: Codable {
     let title: String
     let video: Bool
     let voteAverage: Double
-    let  voteCount: Int
+    let voteCount: Int
 
     enum CodingKeys: String, CodingKey {
         case adult
