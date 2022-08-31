@@ -11,25 +11,28 @@ import Kingfisher
 
 final class CustomCell: UICollectionViewCell {
     
+    private let emptyImage = "Empty"
+    
     func configureMovieCell(with item: ItemModel) {
         nameLabel.text = item.name
         dateLabel.text = item.date
         guard let urlImage = URL(string: item.image) else {
             return
         }
+        image.kf.indicatorType = .activity
         image.kf.setImage(with: urlImage)
     }
     
     func configureEmptyCell() {
         nameLabel.text = "Add you favoutiute movies and TV's here"
         dateLabel.text = ""
+        image.image = UIImage(named: emptyImage)
     }
 
     private let imageHeightMultuplier: CGFloat = 0.8
 
     private lazy var image: UIImageView = {
         let image = UIImageView()
-        image.backgroundColor = .blue
         image.layer.cornerRadius = 16
         image.clipsToBounds = true
         return image

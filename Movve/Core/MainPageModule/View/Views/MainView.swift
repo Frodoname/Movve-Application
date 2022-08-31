@@ -17,6 +17,7 @@ final class MainView: UIView {
     weak var delegate: MainViewProtocol?
 
     private let customCellId = "customCellId"
+    private let lastCellId = "lastCellId"
 
     private let padding: CGFloat = 12
     private let heightLabel: CGFloat = 30
@@ -80,6 +81,7 @@ final class MainView: UIView {
         view.backgroundColor = UIColor(named: ColorScheme.backgroundColor)
         view.showsHorizontalScrollIndicator = false
         view.register(CustomCell.self, forCellWithReuseIdentifier: customCellId)
+        view.register(LastCell.self, forCellWithReuseIdentifier: lastCellId)
         return view
     }()
     
@@ -106,6 +108,7 @@ final class MainView: UIView {
         view.backgroundColor = UIColor(named: ColorScheme.backgroundColor)
         view.showsHorizontalScrollIndicator = false
         view.register(CustomCell.self, forCellWithReuseIdentifier: customCellId)
+        view.register(LastCell.self, forCellWithReuseIdentifier: lastCellId)
         return view
     }()
     
@@ -116,7 +119,7 @@ final class MainView: UIView {
         return view
     }()
 
-    private lazy var continueWatchingLabel: UILabel = {
+    lazy var continueWatchingLabel: UILabel = {
         let label = UILabel()
         label.text = "Continue watching"
         label.textColor = ColorScheme.textColor
@@ -132,6 +135,7 @@ final class MainView: UIView {
         view.backgroundColor = UIColor(named: ColorScheme.backgroundColor)
         view.showsHorizontalScrollIndicator = false
         view.register(CustomCell.self, forCellWithReuseIdentifier: customCellId)
+        view.register(LastCell.self, forCellWithReuseIdentifier: lastCellId)
         return view
     }()
     
@@ -207,7 +211,8 @@ final class MainView: UIView {
     
     @objc private func refreshScrollView(sender: UIRefreshControl) {
         delegate?.didRefreshData()
-        DispatchQueue.main.async {
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             sender.endRefreshing()
         }
     }

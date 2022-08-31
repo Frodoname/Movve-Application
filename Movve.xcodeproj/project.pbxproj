@@ -23,6 +23,7 @@
 		89DE878728BE7AF300F5C6D0 /* NetworkTvModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89DE878628BE7AF300F5C6D0 /* NetworkTvModel.swift */; };
 		89DE878928BE858C00F5C6D0 /* Genre.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89DE878828BE858C00F5C6D0 /* Genre.swift */; };
 		89DE878B28BE8AB100F5C6D0 /* DtoTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89DE878A28BE8AB100F5C6D0 /* DtoTransformer.swift */; };
+		89DE878D28BFD0CF00F5C6D0 /* LastCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89DE878C28BFD0CF00F5C6D0 /* LastCell.swift */; };
 		89E54D4B28ABF05B002AD4D4 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E54D4A28ABF05B002AD4D4 /* MainView.swift */; };
 		89E54D4E28ABF1B2002AD4D4 /* ColorScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E54D4D28ABF1B2002AD4D4 /* ColorScheme.swift */; };
 /* End PBXBuildFile section */
@@ -47,6 +48,7 @@
 		89DE878628BE7AF300F5C6D0 /* NetworkTvModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTvModel.swift; sourceTree = "<group>"; };
 		89DE878828BE858C00F5C6D0 /* Genre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre.swift; sourceTree = "<group>"; };
 		89DE878A28BE8AB100F5C6D0 /* DtoTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DtoTransformer.swift; sourceTree = "<group>"; };
+		89DE878C28BFD0CF00F5C6D0 /* LastCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastCell.swift; sourceTree = "<group>"; };
 		89E54D4A28ABF05B002AD4D4 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		89E54D4D28ABF1B2002AD4D4 /* ColorScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorScheme.swift; sourceTree = "<group>"; };
 		FA6169447B78D3C5EA0AF4A0 /* Pods-Movve.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Movve.debug.xcconfig"; path = "Target Support Files/Pods-Movve/Pods-Movve.debug.xcconfig"; sourceTree = "<group>"; };
@@ -161,7 +163,6 @@
 				89E54D4328ABEE71002AD4D4 /* App */,
 				89832A9D28BE0C50007A117E /* Core */,
 				89B9437F28A1666500E99075 /* Info.plist */,
-				89B9437C28A1666500E99075 /* LaunchScreen.storyboard */,
 			);
 			path = Movve;
 			sourceTree = "<group>";
@@ -169,6 +170,7 @@
 		89E54D4328ABEE71002AD4D4 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				89B9437C28A1666500E99075 /* LaunchScreen.storyboard */,
 				89B9437128A1666400E99075 /* AppDelegate.swift */,
 				89B9437A28A1666500E99075 /* Assets.xcassets */,
 			);
@@ -224,6 +226,7 @@
 			isa = PBXGroup;
 			children = (
 				895B508328ACDE1200B03ACC /* CustomCell.swift */,
+				89DE878C28BFD0CF00F5C6D0 /* LastCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -389,6 +392,7 @@
 				89DE878B28BE8AB100F5C6D0 /* DtoTransformer.swift in Sources */,
 				895B508228AC385800B03ACC /* UIView + Extension.swift in Sources */,
 				89832AA028BE0C6D007A117E /* NetworkService.swift in Sources */,
+				89DE878D28BFD0CF00F5C6D0 /* LastCell.swift in Sources */,
 				89832AA228BE0FE8007A117E /* NetworkMovieModel.swift in Sources */,
 				89B9437228A1666400E99075 /* AppDelegate.swift in Sources */,
 			);

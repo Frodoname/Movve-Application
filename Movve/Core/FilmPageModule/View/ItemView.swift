@@ -36,7 +36,7 @@ final class ItemView: UIView {
     }()
     
     private lazy var image: UIImageView = {
-        let image = UIImage(named: "movie")
+        let image = UIImage(named: "Empty")
         let imageView = UIImageView(image: image)
         imageView.contentMode = .scaleAspectFit
         return imageView

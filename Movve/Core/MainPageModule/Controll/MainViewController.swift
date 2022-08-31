@@ -11,15 +11,16 @@ final class MainViewController: UIViewController {
     
     private var networkService = NetworkService()
     private let dtoTransformer = DtoTransformer()
-
+    
     private lazy var movieArray: [ItemModel] = []
     private lazy var tvArray: [ItemModel] = []
     private lazy var continueWatchingArray: [ItemModel] = []
-
+    
     private var mainView: MainView!
-
+    
     private let customCellId = "customCellId"
-
+    private let lastCellId = "lastCellId"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpNavigationBar()
@@ -27,20 +28,20 @@ final class MainViewController: UIViewController {
         fetchData()
         mainView.delegate = self
     }
-// MARK: - UI Setup
+    // MARK: - UI Setup
     
     private func setUpNavigationBar() {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor:
                                                                             UIColor.white]
         title = "Movve"
-      }
-
+    }
+    
     private func setUpMainView() {
         view.backgroundColor = UIColor(named: ColorScheme.backgroundColor)
         mainView = MainView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height))
         view.addSubview(mainView)
-
+        
         mainView.popularMoviesCollectionView.delegate = self
         mainView.popularMoviesCollectionView.dataSource = self
         mainView.tvShowCollectionView.delegate = self
@@ -49,7 +50,7 @@ final class MainViewController: UIViewController {
         mainView.continueWatchingCollectionView.dataSource = self
     }
     
-// MARK: - Networking
+    // MARK: - Networking
     
     private func fetchData() {
         networkService.fetchPopularMovies(with: networkService.urlMovie) { [weak self] result in
@@ -58,6 +59,7 @@ final class MainViewController: UIViewController {
                 self?.movieArray = self?.dtoTransformer.networkMovieToDomainArray(with: model.results) ?? []
                 self?.movieArray.shuffle()
                 self?.mainView.popularMoviesCollectionView.reloadData()
+                self?.mainView.popularMoviesCollectionView.setContentOffset(.zero, animated: true)
             case .failure(let error):
                 print(error)
             }
@@ -69,11 +71,20 @@ final class MainViewController: UIViewController {
                 self?.tvArray = self?.dtoTransformer.networkTvToDomainArray(with: model.results) ?? []
                 self?.tvArray.shuffle()
                 self?.mainView.tvShowCollectionView.reloadData()
+                self?.mainView.tvShowCollectionView.setContentOffset(.zero, animated: true)
             case .failure(let error):
                 print(error)
             }
-
         }
+    }
+    
+    // MARK: - Private Functions
+    
+    private func goToItemController(with item: ItemModel?) {
+        let rootVC = ItemViewController()
+        let navVC = UINavigationController(rootViewController: rootVC)
+        navVC.modalPresentationStyle = .fullScreen
+        self.present(navVC, animated: true)
     }
 }
 
@@ -83,9 +94,9 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch collectionView {
         case mainView.popularMoviesCollectionView:
-            return movieArray.count
+            return movieArray.count + 1
         case mainView.tvShowCollectionView:
-            return tvArray.count
+            return tvArray.count + 1
         case mainView.continueWatchingCollectionView:
             if self.continueWatchingArray.isEmpty {
                 return 1
@@ -96,18 +107,31 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
             return 0
         }
     }
-
+    
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: customCellId, for: indexPath)
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: customCellId,
+                                                      for: indexPath)
+        let lastCell = collectionView.dequeueReusableCell(withReuseIdentifier: lastCellId,
+                                                          for: indexPath)
         guard let typedCell = cell as? CustomCell else { return cell }
+        guard let typedLastCell = lastCell as? LastCell else { return lastCell}
         switch collectionView {
         case mainView.popularMoviesCollectionView:
-            typedCell.configureMovieCell(with: movieArray[indexPath.row])
-            return typedCell
+            if indexPath.row < movieArray.count {
+                typedCell.configureMovieCell(with: movieArray[indexPath.row])
+                return typedCell
+            } else {
+                return typedLastCell
+            }
         case mainView.tvShowCollectionView:
-            typedCell.configureMovieCell(with: tvArray[indexPath.row])
-            return typedCell
+            if indexPath.row < tvArray.count {
+                typedCell.configureMovieCell(with: tvArray[indexPath.row])
+                return typedCell
+            } else {
+                return typedLastCell
+            }
         case mainView.continueWatchingCollectionView:
             if self.continueWatchingArray.isEmpty {
                 typedCell.configureEmptyCell()
@@ -120,7 +144,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
             return cell
         }
     }
-
+    
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -129,7 +153,24 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView,
                         didSelectItemAt indexPath: IndexPath) {
-        
+        switch collectionView {
+        case mainView.popularMoviesCollectionView:
+            if indexPath.row < movieArray.count {
+                goToItemController(with: nil)
+            } else {
+                print("all movies here")
+            }
+        case mainView.tvShowCollectionView:
+            if indexPath.row < movieArray.count {
+                goToItemController(with: nil)
+            } else {
+                print("all tv's are here")
+            }
+        case mainView.continueWatchingCollectionView:
+            print("continue")
+        default:
+            return
+        }
     }
 }
 
