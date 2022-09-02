@@ -41,7 +41,7 @@ final class ItemViewController: UIViewController {
         itemView.itemDesciption.text = itemModel.description
         itemView.rateLabel.text = String(itemModel.rate)
         itemView.rateProgressBar.progress = Float(itemModel.rate / 10)
-        itemView.itemTextInfoLabel.text = "2020 | \(itemModel.genre) | \(itemModel.language)"
+        itemView.itemTextInfoLabel.text = "\(itemModel.dateFormatted) | \(itemModel.genre) | \(itemModel.language)"
         
         guard let imageUrl = URL(string: itemModel.originalImage) else {
             return

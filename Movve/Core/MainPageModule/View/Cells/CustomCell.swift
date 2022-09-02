@@ -15,7 +15,7 @@ final class CustomCell: UICollectionViewCell {
     
     func configureMovieCell(with item: ItemModel) {
         nameLabel.text = item.name
-        dateLabel.text = item.date
+        dateLabel.text = item.dateFormatted
         guard let urlImage = URL(string: item.image) else {
             return
         }

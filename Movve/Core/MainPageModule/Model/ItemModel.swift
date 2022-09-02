@@ -19,6 +19,17 @@ struct ItemModel {
     let popularity: Double
     let genreId: [Int]
     
+    var dateFormatted: String {
+        let dateFormatter = ISO8601DateFormatter()
+        dateFormatter.formatOptions = [.withFullDate]
+        guard let date = dateFormatter.date(from: date) else {
+            return ""
+        }
+        let dateF = DateFormatter()
+        dateF.dateFormat = "yyyy"
+        return dateF.string(from: date)
+    }
+    
     var language: String {
         guard let language = Locale.init(identifier: "en").localizedString(forLanguageCode: originalLanguage) else {
             return ""
