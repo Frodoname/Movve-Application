@@ -51,7 +51,7 @@ struct ElementMovie: Codable {
         case posterPath = "poster_path"
         case releaseDate = "release_date"
         case title
-        case  video
+        case video
         case voteAverage = "vote_average"
         case voteCount = "vote_count"
     }
