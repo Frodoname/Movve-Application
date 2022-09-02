@@ -10,7 +10,8 @@ import Foundation
 final class DtoTransformer {
     
     private let imagePath = "https://image.tmdb.org/t/p/w300"
-    
+    private let originalImagePath = "https://image.tmdb.org/t/p/w500"
+
     private func networkMovieToDomain(with movieModel: ElementMovie) -> ItemModel {
         let model = ItemModel(name: movieModel.title,
                                id: movieModel.id,
@@ -18,6 +19,7 @@ final class DtoTransformer {
                                rate: movieModel.voteAverage,
                                date: movieModel.releaseDate,
                                image: (imagePath + movieModel.posterPath),
+                               originalImage: (originalImagePath + movieModel.posterPath),
                                genreId: movieModel.genreIDS)
         return model
     }
@@ -33,6 +35,7 @@ final class DtoTransformer {
                                rate: tvModel.voteAverage,
                                date: tvModel.firstAirDate,
                                image: (imagePath + tvModel.posterPath),
+                               originalImage: (originalImagePath + tvModel.posterPath),
                                genreId: tvModel.genreIDS)
         return model
     }

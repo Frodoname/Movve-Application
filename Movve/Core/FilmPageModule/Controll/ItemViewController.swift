@@ -7,15 +7,47 @@
 
 import Foundation
 import UIKit
+import Kingfisher
 
 final class ItemViewController: UIViewController {
     
+    private let bookMarkImage = "bookmark"
+    private let bookMarkImageFilled = "bookmark.fill"
+    
     private var itemView: ItemView!
+    var itemModel: ItemModel!
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        transparentNavControllerOn()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpItemView()
         setUpNavController()
+        setUpItemModel()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        transparentNavControllerOff()
+    }
+        
+    // MARK: - UI Setup
+    
+    private func setUpItemModel() {
+        itemView.itemName.text = itemModel.name
+        itemView.itemDesciption.text = itemModel.description
+        itemView.rateLabel.text = String(itemModel.rate)
+        itemView.rateProgressBar.progress = Float(itemModel.rate / 10)
+        let genre = itemModel.genre.map {$0.rawValue}.joined(separator: ", ")
+        itemView.itemTextInfoLabel.text = "2020 | \(genre) | 2 h 35 m"
+        guard let imageUrl = URL(string: itemModel.originalImage) else {
+            return
+        }
+        itemView.image.kf.indicatorType = .activity
+        itemView.image.kf.setImage(with: imageUrl)
     }
     
     private func setUpItemView() {
@@ -23,12 +55,40 @@ final class ItemViewController: UIViewController {
         view.addSubview(itemView)
     }
     
-    private func setUpNavController() {
-        let backButton = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(closeScreen))
-        navigationItem.leftBarButtonItem = backButton
+    // MARK: - Navigation ControllerSetUp
+
+    private func transparentNavControllerOn() {
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.isTranslucent = true
     }
     
-    @objc private func closeScreen() {
-        self.dismiss(animated: true)
+    private func transparentNavControllerOff() {
+        navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
+        navigationController?.navigationBar.shadowImage = nil
+    }
+    
+    private func setUpNavController() {
+        let systemIcon = UIImage(systemName: bookMarkImage)
+        let addToFavouriteButton = UIBarButtonItem(image: systemIcon, style: .plain, target: self, action: #selector(addedToFavourite))
+        navigationItem.rightBarButtonItem = addToFavouriteButton
+        
+        itemView.scrollView.insetsLayoutMarginsFromSafeArea = false
+        itemView.scrollView.contentInsetAdjustmentBehavior = .never
+    }
+        
+    // MARK: - Action
+    
+    private var toogleSwitchedOn: Bool = false
+    
+    @objc private func addedToFavourite(sender: UIBarButtonItem) {
+        toogleSwitchedOn.toggle()
+        if toogleSwitchedOn {
+            sender.image = UIImage(systemName: bookMarkImageFilled)
+            print("In the Fav list")
+        } else {
+            sender.image = UIImage(systemName: bookMarkImage)
+            print("Removed from Fav list")
+        }
     }
 }

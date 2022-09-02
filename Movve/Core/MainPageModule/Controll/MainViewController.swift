@@ -9,6 +9,9 @@ import UIKit
 
 final class MainViewController: UIViewController {
     
+    private let cellWidth: CGFloat = 140
+    private let cellHeight: CGFloat = 200
+    
     private var networkService = NetworkService()
     private let dtoTransformer = DtoTransformer()
     
@@ -80,11 +83,11 @@ final class MainViewController: UIViewController {
     
     // MARK: - Private Functions
     
-    private func goToItemController(with item: ItemModel?) {
+    private func goToItemController(with item: ItemModel) {
         let rootVC = ItemViewController()
-        let navVC = UINavigationController(rootViewController: rootVC)
-        navVC.modalPresentationStyle = .fullScreen
-        self.present(navVC, animated: true)
+        rootVC.itemModel = item
+        self.navigationController?.pushViewController(rootVC, animated: true)
+        navigationItem.backButtonTitle = "Back"
     }
 }
 
@@ -148,7 +151,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 140, height: 200)
+        return CGSize(width: cellWidth, height: cellHeight)
     }
     
     func collectionView(_ collectionView: UICollectionView,
@@ -156,13 +159,13 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         switch collectionView {
         case mainView.popularMoviesCollectionView:
             if indexPath.row < movieArray.count {
-                goToItemController(with: nil)
+                goToItemController(with: movieArray[indexPath.row])
             } else {
                 print("all movies here")
             }
         case mainView.tvShowCollectionView:
-            if indexPath.row < movieArray.count {
-                goToItemController(with: nil)
+            if indexPath.row < tvArray.count {
+                goToItemController(with: tvArray[indexPath.row])
             } else {
                 print("all tv's are here")
             }

@@ -14,6 +14,7 @@ struct ItemModel {
     let rate: Double
     let date: String
     let image: String
+    let originalImage: String
     let genreId: [Int]
     
     var genre: [Genre] {

@@ -4,6 +4,7 @@
 //
 //  Created by Fed on 16.08.2022.
 //
+// swiftlint: disable type_body_length
 
 import UIKit
 import Foundation
@@ -11,7 +12,6 @@ import Foundation
 protocol MainViewProtocol: AnyObject {
     func didRefreshData()
 }
-
 final class MainView: UIView {
     
     weak var delegate: MainViewProtocol?
