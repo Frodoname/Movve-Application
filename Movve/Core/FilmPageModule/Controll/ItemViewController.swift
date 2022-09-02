@@ -41,8 +41,8 @@ final class ItemViewController: UIViewController {
         itemView.itemDesciption.text = itemModel.description
         itemView.rateLabel.text = String(itemModel.rate)
         itemView.rateProgressBar.progress = Float(itemModel.rate / 10)
-        let genre = itemModel.genre.map {$0.rawValue}.joined(separator: ", ")
-        itemView.itemTextInfoLabel.text = "2020 | \(genre) | 2 h 35 m"
+        itemView.itemTextInfoLabel.text = "2020 | \(itemModel.genre) | \(itemModel.language)"
+        
         guard let imageUrl = URL(string: itemModel.originalImage) else {
             return
         }

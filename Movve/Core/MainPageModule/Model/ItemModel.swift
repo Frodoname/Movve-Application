@@ -15,9 +15,18 @@ struct ItemModel {
     let date: String
     let image: String
     let originalImage: String
+    let originalLanguage: String
+    let popularity: Double
     let genreId: [Int]
     
-    var genre: [Genre] {
+    var language: String {
+        guard let language = Locale.init(identifier: "en").localizedString(forLanguageCode: originalLanguage) else {
+            return ""
+        }
+        return language
+    }
+    
+    var genre: String {
         var array: [Genre] = []
         for genre in genreId {
             switch genre {
@@ -79,6 +88,6 @@ struct ItemModel {
                 array.append(.noGenre)
             }
         }
-        return array
+        return array.map({$0.rawValue}).joined(separator: ", ")
     }
 }
