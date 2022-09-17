@@ -1,6 +1,11 @@
 ## Movve App
 ### Simple Pet Proj for wathcing popular movies and TV shows
-#### Stack of technologies: Autolayout (by code), URLSession and GCD for Networking, CocoaPods (SwiftLint for clean Code & Kingfisher for Downloading/Cache Images)
+#### Stack of technologies: 
+<ul>
+<li>Autolayout (by code)</li>
+<li>URLSession and GCD for Networking</li>
+<li>CocoaPods (SwiftLint for clean Code & Kingfisher for Downloading/Cache Images)</li>
+</ul>
 
 To run the project use 'pod install' first
 
