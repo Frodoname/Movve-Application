@@ -32,7 +32,7 @@ final class ActorCell: UICollectionViewCell {
         label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
         label.textColor = ColorScheme.textDesriptionColor
         label.textAlignment = .center
-        label.text = "Selena Cotez"
+        label.text = "Jusin Cotez"
         return label
     }()
     
@@ -41,7 +41,7 @@ final class ActorCell: UICollectionViewCell {
         label.font = UIFont.systemFont(ofSize: 12, weight: .light)
         label.textColor = ColorScheme.textDesriptionColor
         label.textAlignment = .center
-        label.text = "MISS CAT"
+        label.text = "James Cat"
         return label
     }()
     

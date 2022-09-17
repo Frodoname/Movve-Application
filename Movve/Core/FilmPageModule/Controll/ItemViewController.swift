@@ -113,7 +113,7 @@ extension ItemViewController: UICollectionViewDataSource, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: actorIdCell, for: indexPath)
-        cell.backgroundColor = .white
+        cell.backgroundColor = ColorScheme.backgroundColor
         guard let typedCell = cell as? ActorCell else {
             return cell
         }
