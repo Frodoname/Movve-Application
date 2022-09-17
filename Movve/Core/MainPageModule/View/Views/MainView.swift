@@ -53,7 +53,7 @@ final class MainView: UIView {
 
     private lazy var contentView: UIStackView = {
         let view = UIStackView(arrangedSubviews: [upperView, middleView, downView, downTapBarView])
-        view.backgroundColor = UIColor(named: ColorScheme.backgroundColor)
+        view.backgroundColor = ColorScheme.backgroundColor
         view.axis = .vertical
         return view
     }()
@@ -78,7 +78,7 @@ final class MainView: UIView {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        view.backgroundColor = UIColor(named: ColorScheme.backgroundColor)
+        view.backgroundColor = ColorScheme.backgroundColor
         view.showsHorizontalScrollIndicator = false
         view.register(CustomCell.self, forCellWithReuseIdentifier: customCellId)
         view.register(LastCell.self, forCellWithReuseIdentifier: lastCellId)
@@ -105,7 +105,7 @@ final class MainView: UIView {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        view.backgroundColor = UIColor(named: ColorScheme.backgroundColor)
+        view.backgroundColor = ColorScheme.backgroundColor
         view.showsHorizontalScrollIndicator = false
         view.register(CustomCell.self, forCellWithReuseIdentifier: customCellId)
         view.register(LastCell.self, forCellWithReuseIdentifier: lastCellId)
@@ -132,7 +132,7 @@ final class MainView: UIView {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        view.backgroundColor = UIColor(named: ColorScheme.backgroundColor)
+        view.backgroundColor = ColorScheme.backgroundColor
         view.showsHorizontalScrollIndicator = false
         view.register(CustomCell.self, forCellWithReuseIdentifier: customCellId)
         view.register(LastCell.self, forCellWithReuseIdentifier: lastCellId)

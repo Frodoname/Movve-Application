@@ -57,7 +57,7 @@ final class CustomCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = UIColor(named: ColorScheme.backgroundColor)
+        backgroundColor = ColorScheme.backgroundColor
         setUpLayout()
     }
 

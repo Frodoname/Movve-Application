@@ -10,6 +10,8 @@ import UIKit
 
 final class ItemView: UIView {
     
+    private let actorIdCell = "actorIdCell"
+    
     // MARK: - Local Constants
     
     private let imageHeight: CGFloat = 560
@@ -129,7 +131,12 @@ final class ItemView: UIView {
     }()
     
     lazy var actorCollectionView: UICollectionView = {
-        let collectionView = UICollectionView()
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.register(ActorCell.self, forCellWithReuseIdentifier: actorIdCell)
+        collectionView.backgroundColor = ColorScheme.backgroundColor
         return collectionView
     }()
     
@@ -177,22 +184,24 @@ final class ItemView: UIView {
         addSubview(scrollView)
         scrollView.addSubview(containerView)
         containerView.addSubview(image)
+        image.addSubview(transparentView)
         containerView.addSubview(itemName)
         containerView.addSubview(itemTextInfoLabel)
         containerView.addSubview(rateStackView)
         containerView.addSubview(itemDesciption)
+        containerView.addSubview(actorCollectionView)
         containerView.addSubview(itemButton)
-        image.addSubview(transparentView)
         
         scrollView.prepareForAutoLayOut()
         containerView.prepareForAutoLayOut()
         image.prepareForAutoLayOut()
+        transparentView.prepareForAutoLayOut()
         itemName.prepareForAutoLayOut()
         itemTextInfoLabel.prepareForAutoLayOut()
         rateStackView.prepareForAutoLayOut()
         itemDesciption.prepareForAutoLayOut()
+        actorCollectionView.prepareForAutoLayOut()
         itemButton.prepareForAutoLayOut()
-        transparentView.prepareForAutoLayOut()
                 
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: topAnchor),
@@ -210,6 +219,11 @@ final class ItemView: UIView {
             image.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
             image.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
             
+            transparentView.bottomAnchor.constraint(equalTo: image.bottomAnchor),
+            transparentView.leadingAnchor.constraint(equalTo: image.leadingAnchor),
+            transparentView.trailingAnchor.constraint(equalTo: image.trailingAnchor),
+            transparentView.heightAnchor.constraint(equalTo: image.heightAnchor, multiplier: 0.2),
+            
             itemName.topAnchor.constraint(equalTo: image.bottomAnchor),
             itemName.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 35),
             itemName.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -35),
@@ -226,14 +240,14 @@ final class ItemView: UIView {
             itemDesciption.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 30),
             itemDesciption.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -30),
             
-            itemButton.topAnchor.constraint(equalTo: itemDesciption.bottomAnchor, constant: 50),
-            itemButton.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
-            itemButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -20),
+            actorCollectionView.topAnchor.constraint(equalTo: itemDesciption.bottomAnchor, constant: 12),
+            actorCollectionView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            actorCollectionView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            actorCollectionView.heightAnchor.constraint(equalToConstant: 90),
             
-            transparentView.bottomAnchor.constraint(equalTo: image.bottomAnchor),
-            transparentView.leadingAnchor.constraint(equalTo: image.leadingAnchor),
-            transparentView.trailingAnchor.constraint(equalTo: image.trailingAnchor),
-            transparentView.heightAnchor.constraint(equalTo: image.heightAnchor, multiplier: 0.2)
+            itemButton.topAnchor.constraint(equalTo: actorCollectionView.bottomAnchor, constant: 50),
+            itemButton.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
+            itemButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -20)
         ])
     }
 }

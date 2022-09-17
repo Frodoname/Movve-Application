@@ -11,6 +11,8 @@ import Kingfisher
 
 final class ItemViewController: UIViewController {
     
+    private let actorIdCell = "actorIdCell"
+    
     private let bookMarkImage = "bookmark"
     private let bookMarkImageFilled = "bookmark.fill"
     
@@ -27,11 +29,19 @@ final class ItemViewController: UIViewController {
         setUpItemView()
         setUpNavController()
         setUpItemModel()
+        delegateSetup()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         transparentNavControllerOff()
+    }
+    
+    // MARK: - Delegate Setup
+    
+    private func delegateSetup() {
+        itemView.actorCollectionView.delegate = self
+        itemView.actorCollectionView.dataSource = self
     }
         
     // MARK: - UI Setup
@@ -91,4 +101,35 @@ final class ItemViewController: UIViewController {
             print("Removed from Fav list")
         }
     }
+}
+
+extension ItemViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        numberOfItemsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: actorIdCell, for: indexPath)
+        cell.backgroundColor = .white
+        guard let typedCell = cell as? ActorCell else {
+            return cell
+        }
+        typedCell.configureCell()
+        return typedCell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 78, height: 90)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        didSelectItemAt indexPath: IndexPath) {
+        print(indexPath.row)
+    }
+
 }

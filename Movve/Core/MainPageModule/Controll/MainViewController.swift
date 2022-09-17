@@ -41,7 +41,7 @@ final class MainViewController: UIViewController {
     }
     
     private func setUpMainView() {
-        view.backgroundColor = UIColor(named: ColorScheme.backgroundColor)
+        view.backgroundColor = ColorScheme.backgroundColor
         mainView = MainView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height))
         view.addSubview(mainView)
         
@@ -93,8 +93,9 @@ final class MainViewController: UIViewController {
 
 // MARK: - Extension CollectionView Setup
 
-extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+extension MainViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView,
+                        numberOfItemsInSection section: Int) -> Int {
         switch collectionView {
         case mainView.popularMoviesCollectionView:
             return movieArray.count + 1
@@ -113,7 +114,6 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: customCellId,
                                                       for: indexPath)
         let lastCell = collectionView.dequeueReusableCell(withReuseIdentifier: lastCellId,

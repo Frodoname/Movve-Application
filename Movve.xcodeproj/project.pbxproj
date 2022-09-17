@@ -26,6 +26,7 @@
 		89DE878D28BFD0CF00F5C6D0 /* LastCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89DE878C28BFD0CF00F5C6D0 /* LastCell.swift */; };
 		89E54D4B28ABF05B002AD4D4 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E54D4A28ABF05B002AD4D4 /* MainView.swift */; };
 		89E54D4E28ABF1B2002AD4D4 /* ColorScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E54D4D28ABF1B2002AD4D4 /* ColorScheme.swift */; };
+		89F530C028C4D9E0007BD107 /* ActorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F530BF28C4D9E0007BD107 /* ActorCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +52,7 @@
 		89DE878C28BFD0CF00F5C6D0 /* LastCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastCell.swift; sourceTree = "<group>"; };
 		89E54D4A28ABF05B002AD4D4 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		89E54D4D28ABF1B2002AD4D4 /* ColorScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorScheme.swift; sourceTree = "<group>"; };
+		89F530BF28C4D9E0007BD107 /* ActorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorCell.swift; sourceTree = "<group>"; };
 		FA6169447B78D3C5EA0AF4A0 /* Pods-Movve.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Movve.debug.xcconfig"; path = "Target Support Files/Pods-Movve/Pods-Movve.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -78,24 +80,17 @@
 		89407AC628B60B200049B2A5 /* FilmPageModule */ = {
 			isa = PBXGroup;
 			children = (
-				89407AC728B60B4E0049B2A5 /* Model */,
 				89407AC828B60B580049B2A5 /* View */,
 				89407AC928B60B5F0049B2A5 /* Controll */,
 			);
 			path = FilmPageModule;
 			sourceTree = "<group>";
 		};
-		89407AC728B60B4E0049B2A5 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		89407AC828B60B580049B2A5 /* View */ = {
 			isa = PBXGroup;
 			children = (
 				89407ACC28B60C150049B2A5 /* ItemView.swift */,
+				89F530BE28C4D9CE007BD107 /* Cell */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -237,6 +232,14 @@
 				89E54D4D28ABF1B2002AD4D4 /* ColorScheme.swift */,
 			);
 			path = Constants;
+			sourceTree = "<group>";
+		};
+		89F530BE28C4D9CE007BD107 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				89F530BF28C4D9E0007BD107 /* ActorCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		FE9895D9660F13E38CD66E41 /* Frameworks */ = {
@@ -390,6 +393,7 @@
 				89832AA428BE44FF007A117E /* NetworkError.swift in Sources */,
 				89407ACB28B60BB00049B2A5 /* ItemViewController.swift in Sources */,
 				89DE878B28BE8AB100F5C6D0 /* DtoTransformer.swift in Sources */,
+				89F530C028C4D9E0007BD107 /* ActorCell.swift in Sources */,
 				895B508228AC385800B03ACC /* UIView + Extension.swift in Sources */,
 				89832AA028BE0C6D007A117E /* NetworkService.swift in Sources */,
 				89DE878D28BFD0CF00F5C6D0 /* LastCell.swift in Sources */,

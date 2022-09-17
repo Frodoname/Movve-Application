@@ -26,6 +26,7 @@ final class NetworkService {
                     }
                     DispatchQueue.main.async {
                         completion(.success(decodedData))
+                        print(decodedData.results[5])
                     }
                 case .failure:
                     DispatchQueue.main.async {

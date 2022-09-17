@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 enum ColorScheme {
-    static let backgroundColor = "Background Color"
+    static let backgroundColor = UIColor.black /*"Background Color"*/
     static let tapBarBackgroundColor = "TapBar Background Color"
     static let textColor = UIColor.white
     static let baseColor = UIColor.white
