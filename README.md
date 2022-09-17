@@ -7,6 +7,8 @@
 <li>CocoaPods (SwiftLint for clean Code & Kingfisher for Downloading/Cache Images)</li>
 </ul>
 
-To run the project use 'pod install' first
+To run the project use ```
+pod install```
+ first
 
 Also, if you want to use it from Russia, use VPN
