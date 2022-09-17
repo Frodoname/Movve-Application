@@ -14,3 +14,5 @@ pod install```
  first, than open xcworkspace only
 
 Also, if you want to use it from Russia, use VPN
+
+<em> And sorry, while you can see this label – proj is'n completed at all :cry: </em>
